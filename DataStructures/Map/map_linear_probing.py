@@ -20,4 +20,20 @@ def new_map(num_elements, load_factor, prime=109345121):
             "current_factor": current_factor,
             "limit_factor": 0.5    
     }     
+
+def find_slot(my_map, key, hash_value):
+    capacity = my_map["capacity"]
+    table = my_map["table"]
     
+    while True:
+        entry = al.get_element(table, hash_value)
+        key_actual= me.get_key(entry)
+        
+        if key_actual is None:
+            return False, hash_value
+        
+        if key == key_actual:
+            return True, hash_value
+        
+        hash_value = (hash_value + 1) % capacity
+        
