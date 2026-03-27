@@ -123,4 +123,26 @@ def remove(my_map, key):
 def size(my_map):
     return my_map["size"]
 
+def is_empty(my_map):
+    return my_map["size"] == 0
+
+def key_set(my_map):
+    llaves = al.new_list()
+    tabla = my_map["table"]
+
+    for i in range(al.size(tabla)):
+        elem = al.get_element(tabla, i)
+        if elem["key"] is not None and elem["key"] != "__EMPTY__":
+            al.add_last(llaves, elem["key"])
+    return llaves
+
+def value_set(my_map):
+    values = al.new_list()
+    tabla = my_map["table"]
+
+    for i in range(al.size(tabla)):
+        elem = al.get_element(tabla, i)
+        if elem["key"] is not None and elem["key"] != "__EMPTY__":
+            al.add_last(values, elem["value"])
+    return values
 
