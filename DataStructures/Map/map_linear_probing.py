@@ -9,15 +9,12 @@ def rehash(my_map):
         entry = al.get_element(my_map["table"], i)
         key = me.get_key(entry)
         value = me.get_value(entry)
-        if key is not None and key != "empty":
+        if key is not None and key != "__EMPTY__":
             put(new_table, key, value)
     my_map["table"] = new_table["table"]
     my_map["capacity"] = new_table["capacity"]
     my_map["size"] = new_table["size"]
     my_map["current_factor"] = new_table["current_factor"]
-
-    return new_table
-    
 
 def new_map(num_elements, load_factor, prime=109345121):
     capacity = mf.next_prime(int(num_elements / load_factor))
@@ -36,30 +33,43 @@ def new_map(num_elements, load_factor, prime=109345121):
             "current_factor": current_factor,
             "limit_factor": load_factor,
             "size": 0 
-    }     
+    }   
+      
+def is_available(table, pos):
+
+   entry = al.get_element(table, pos)
+   if me.get_key(entry) is None or me.get_key(entry) == "__EMPTY__":
+      return True
+   return False
+
+def default_compare(key, entry):
+
+   if key == me.get_key(entry):
+      return 0
+   elif key > me.get_key(entry):
+      return 1
+   return -1
 
 def find_slot(my_map, key, hash_value):
     capacity = my_map["capacity"]
     table = my_map["table"]
     
-    first_empty = None
+    first_available = None
     
     while True:
         entry = al.get_element(table, hash_value)
-        key_actual= me.get_key(entry)
         
-        if key_actual is None:
-            if first_empty is not None:
-                return False, first_empty
-            return False, hash_value
-        
-        if key == key_actual:
+        if is_available(table, hash_value):
+            
+            if first_available is None:
+                first_available = hash_value
+                
+            if me.get_key(entry) is None:
+                return False, first_available
+            
+        elif default_compare(key, entry) == 0:
             return True, hash_value
         
-        if key_actual == "empty":
-            if first_empty is None:
-                first_empty = hash_value
-                
         hash_value = (hash_value + 1) % capacity
 
 def put(my_map, key, value):
@@ -104,7 +114,7 @@ def remove(my_map, key):
     found, pos = find_slot(my_map, key, hash_val)
 
     if found:
-        al.change_info(my_map["table"], pos, me.new_map_entry("empty", None))
+        al.change_info(my_map["table"], pos, me.new_map_entry("__EMPTY__", None))
         my_map["size"] -= 1
         my_map["current_factor"] = my_map["size"] / my_map["capacity"]
 
