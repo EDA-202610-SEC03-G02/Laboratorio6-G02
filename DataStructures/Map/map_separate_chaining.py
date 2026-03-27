@@ -19,7 +19,7 @@ def new_map(num_elements, load_factor, prime=109345121):
             "shift": shift,
             "table": mi_lista,
             "current_factor": 0,
-            "limit_factor": 4,
+            "limit_factor": load_factor,
             "size": 0
     }
     
@@ -38,6 +38,7 @@ def rehash(my_map):
     my_map["table"] = mapa_nuevo["table"]
     my_map["capacity"] = mapa_nuevo["capacity"]
     my_map["size"] = 0
+    
     
     for i in range(al.size(mapa_viejo)):
         bucket = al.get_element(mapa_viejo, i)
@@ -61,10 +62,8 @@ def put(my_map, key, value):
     new_entry = me.new_map_entry(key, value)
     al.add_last(bucket, new_entry)
     my_map["size"] += 1
-    
-    my_map["current_factor"] = my_map["size"]/my_map["capacity"]
-    
-    if my_map["current_factor"] > my_map["limit_factor"]:
+        
+    if my_map["size"]/my_map["capacity"] > my_map["limit_factor"]:
         rehash(my_map)
     
     return my_map
