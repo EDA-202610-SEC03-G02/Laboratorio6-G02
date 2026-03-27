@@ -32,8 +32,7 @@ def default_compare(key, entry):
 
 def rehash(my_map):
     mapa_viejo = my_map["table"]
-    new_capacity = mf.next_prime(my_map["capacity"]*2)
-    mapa_nuevo = new_map(new_capacity, my_map["limit_factor"], my_map["prime"])
+    mapa_nuevo = new_map(my_map["capacity"], my_map["limit_factor"], my_map["prime"]) 
     
     my_map["table"] = mapa_nuevo["table"]
     my_map["capacity"] = mapa_nuevo["capacity"]

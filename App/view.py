@@ -53,13 +53,13 @@ def load_data(control):
     """
     Solicita a la controlador que cargue los datos
     """
-    start_time = logic.getTime()
     start_memory = logic.getMemory()
+    start_time = logic.getTime()
     
     books, authors, tags, book_tags = logic.load_data(control)
     
-    stop_memory = logic.getMemory()
     end_time = logic.getTime()
+    stop_memory = logic.getMemory()
     
     delta_time = logic.deltaTime(end_time, start_time)
     delta_memory = logic.deltaMemory(start_memory, stop_memory)

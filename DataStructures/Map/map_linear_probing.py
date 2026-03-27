@@ -4,7 +4,7 @@ from DataStructures.List import array_list as al
 from DataStructures.Map import map_functions as mf
 
 def rehash(my_map):
-    new_table = new_map(my_map["size"], my_map["limit_factor"], my_map["prime"])
+    new_table = new_map(my_map["capacity"], my_map["limit_factor"], my_map["prime"])
     for i in range(my_map["capacity"]):
         entry = al.get_element(my_map["table"], i)
         key = me.get_key(entry)
