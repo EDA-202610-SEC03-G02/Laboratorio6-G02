@@ -58,23 +58,23 @@ def new_logic():
 
     #Tabla de Hash que contiene los libros indexados por good_reads_book_id  
     #(good_read_id -> book)
-    catalog['books_by_id'] = lp.new_map(10000, 2)
+    catalog['books_by_id'] = lp.new_map(20000, 2)
     #TODO completar la creación del mapa
 
     #Tabla de Hash con la siguiente pareja llave valor: (author_name -> List(books))
-    catalog['books_by_authors'] = lp.new_map(10000, 2)
+    catalog['books_by_authors'] = lp.new_map(20000, 2)
     #TODO completar la creación del mapa
 
     #Tabla de Hash con la siguiente pareja llave valor: (tag_name -> tag)
-    catalog['tags'] = lp.new_map(10000, 2)
+    catalog['tags'] = lp.new_map(20000, 2)
     #TODO completar la creación del mapa
 
     #Tabla de Hash con la siguiente pareja llave valor: (tag_id -> book_tags)
-    catalog['book_tags'] = lp.new_map(1000,2)
+    catalog['book_tags'] = lp.new_map(2000,2)
 
     #Tabla de Hash principal que contiene sub-mapas dentro de los valores
     #con la siguiente representación de la pareja llave valor: (author_name -> (original_publication_year -> list(books)))
-    catalog['books_by_year_author'] = lp.new_map(10000,2) #TODO completar la creación del mapa
+    catalog['books_by_year_author'] = lp.new_map(20000,2) #TODO completar la creación del mapa
     
     return catalog
 
@@ -220,7 +220,7 @@ def add_book_author_and_year(catalog, author_name, book):
             al.add_last(new_list, book)
             lp.put(author_map, pub_year, new_list)
     else:
-        new_author_map = lp.new_map(100, 0.7)
+        new_author_map = lp.new_map(100, 2)
         new_list = al.new_list()
         al.add_last(new_list, book)
         
