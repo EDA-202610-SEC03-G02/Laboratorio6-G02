@@ -292,9 +292,9 @@ def get_books_by_author(catalog, author_name):
     author_books = lp.get(authors_map, author_name)
     
     if author_books is not None:
-        return author_books
+        return author_name, author_books
     
-    return None
+    return author_name, None
         
 
 
